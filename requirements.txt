@@ -2,5 +2,5 @@
 
 gunicorn
 flask
-torch
-torchvision
+torch==1.6.0+cpu
+torchvision==0.7.0+cpu
