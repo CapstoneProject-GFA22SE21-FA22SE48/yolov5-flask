@@ -40,7 +40,7 @@ def predict():
         labels = results.xyxyn[0][:, -1].numpy()
         print(results, file=sys.stderr)
         print(labels, file=sys.stderr)
-        # results.save(save_dir='static')
+        results.save(save_dir='static')
 
         full_filename = os.path.join(app.config['RESULT_FOLDER'], 'results0.jpg')
         return "Class no " + numpy.array2string(labels)
