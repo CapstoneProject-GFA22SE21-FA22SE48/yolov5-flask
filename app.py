@@ -21,6 +21,7 @@ def get_prediction(img_bytes):
     imgs = [img]  # batched list of images
 
 # Inference
+    model.conf = 0.5
     results = model(imgs, size=640)  # includes NMS
     return results
 
