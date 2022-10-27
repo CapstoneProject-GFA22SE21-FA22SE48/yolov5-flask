@@ -1,12 +1,10 @@
 import io
 import os
-import json
 
 import numpy
 from PIL import Image
-import sys
 import torch
-from flask import Flask, jsonify, url_for, render_template, request, redirect
+from flask import Flask,  render_template, request, redirect
 
 app = Flask(__name__)
 
@@ -36,13 +34,13 @@ def predict():
 
         img_bytes = file.read()
         results = get_prediction(img_bytes)
-        print(results.xyxyn, file=sys.stderr)
+        # print(results.xyxyn, file=sys.stderr)
 
         labels = results.xyxyn[0][:, -1].numpy()
-        print(results, file=sys.stderr)
-        print(labels, file=sys.stderr)
+        # print(results, file=sys.stderr)
+        # print(labels, file=sys.stderr)
         # results.save(save_dir='static')
 
-        full_filename = os.path.join(app.config['RESULT_FOLDER'], 'results0.jpg')
+        # full_filename = os.path.join(app.config['RESULT_FOLDER'], 'results0.jpg')
         return "Class no " + numpy.array2string(labels)
     return render_template('index.html')
