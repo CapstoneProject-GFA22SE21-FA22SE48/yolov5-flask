@@ -43,7 +43,7 @@ def predict():
         # full_filename = os.path.join(app.config['RESULT_FOLDER'], 'results0.jpg')
         return "Class no " + numpy.array2string(labels)
     else:
-        if len(os.listdir('temp')) == 0:
+        if len(os.listdir('temp')) == 1:
             torch.hub.set_dir('temp')
             torch.hub.load("ultralytics/yolov5", 'custom', path="best.pt")
         return render_template('index.html')
