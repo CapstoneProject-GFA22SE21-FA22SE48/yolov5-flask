@@ -1,25 +1,24 @@
 import io
 import os
-
 import numpy
 from PIL import Image
-import torch
 from flask import Flask,  render_template, request, redirect
-
+import torch
 app = Flask(__name__)
 
 RESULT_FOLDER = os.path.join('static')
 app.config['RESULT_FOLDER'] = RESULT_FOLDER
 
-model = torch.hub.load('ultralytics/yolov5', 'custom', path='best.pt', force_reload=True)
-model.eval()
 
 def get_prediction(img_bytes):
+    model = torch.hub.load('./temp/ultralytics_yolov5_master', 'custom', path='best.pt', source='local')
+    model.eval()
+    model.conf = 0.5
+
     img = Image.open(io.BytesIO(img_bytes))
     imgs = [img]  # batched list of images
 
 # Inference
-    model.conf = 0.5
     results = model(imgs, size=640)  # includes NMS
     return results
 
@@ -43,4 +42,8 @@ def predict():
 
         # full_filename = os.path.join(app.config['RESULT_FOLDER'], 'results0.jpg')
         return "Class no " + numpy.array2string(labels)
-    return render_template('index.html')
+    else:
+        if len(os.listdir('temp')) == 0:
+            torch.hub.set_dir('temp')
+            torch.hub.load("ultralytics/yolov5", 'custom', path="best.pt")
+        return render_template('index.html')
