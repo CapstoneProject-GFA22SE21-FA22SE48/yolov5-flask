@@ -33,15 +33,17 @@ def predict():
 
         img_bytes = file.read()
         results = get_prediction(img_bytes)
-        # print(results.xyxyn, file=sys.stderr)
 
-        labels = results.xyxyn[0][:, -1].numpy()
-        # print(results, file=sys.stderr)
-        # print(labels, file=sys.stderr)
-        # results.save(save_dir='static')
+        labels, cord_thres = results.xyxyn[0][:, -1].numpy(), results.xyxyn[0][:, :-1].numpy()
+        print(cord_thres)
 
-        # full_filename = os.path.join(app.config['RESULT_FOLDER'], 'results0.jpg')
-        return "Class no " + numpy.array2string(labels)
+        l = numpy.array2string(labels)
+        t = numpy.array2string(cord_thres)
+        res = []
+        for index, label in enumerate(labels):
+            res.append([label, cord_thres[index][0], cord_thres[index][1], cord_thres[index][2], cord_thres[index][3], cord_thres[index][4]])
+
+        return str(res)
     else:
         if len(os.listdir('temp')) == 1:
             torch.hub.set_dir('temp')
