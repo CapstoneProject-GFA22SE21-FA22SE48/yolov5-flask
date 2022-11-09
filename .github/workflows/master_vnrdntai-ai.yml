@@ -60,4 +60,4 @@ jobs:
         with:
           app-name: 'VNRDnTAI-AI'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_4DD5E5DC4DBA4B5FBF2977D2B84525A5 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_9A4D1BBE71BD4527B9E4CB80A2D39489 }}
