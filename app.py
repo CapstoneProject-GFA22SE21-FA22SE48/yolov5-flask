@@ -15,6 +15,7 @@ if __name__ == "__main__":
 
 def get_prediction(img_bytes):
     model = torch.hub.load('./temp/ultralytics_yolov5_master', 'custom', path='best.pt', source='local')
+    model.cpu()
     model.eval()
     model.conf = 0.5
 
